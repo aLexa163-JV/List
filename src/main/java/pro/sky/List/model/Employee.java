@@ -1,11 +1,10 @@
-package pro.sky.List;
+package pro.sky.List.model;
 
 import java.util.Objects;
 
 public class Employee {
-
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
 
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;
@@ -18,14 +17,6 @@ public class Employee {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     @Override
@@ -43,6 +34,9 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "имя " + firstName + ", фамилия " + lastName;
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }
