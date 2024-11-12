@@ -5,22 +5,26 @@ import java.util.Objects;
 public class Employee {
     private final String firstName;
     private final String lastName;
+    private int id;
+    private int salary;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, int id, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+        this.id = id;
+        this.salary = salary;
     }
 
     public String getFullName() {
-        return firstName + "" + lastName;
+        return firstName + " " + lastName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getSalary() {
+        return salary;
     }
 
     @Override
@@ -28,19 +32,20 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(id, employee.id) && Objects.equals(salary, employee.salary);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(firstName, lastName, id, salary);
     }
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+        return "Имя " + firstName +
+                ", Фамилия" + lastName +
+                ", отдел " + id +
+                ", зарплата " + salary
+                ;
     }
 }
