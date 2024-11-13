@@ -5,44 +5,47 @@ import pro.sky.List.model.Employee;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private final List<Employee> employees;
 
-    public DepartmentServiceImpl(List<Employee> employees) {
-        this.employees = employees;
+    private final EmployeeService employeeService;
+
+    public DepartmentServiceImpl(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
+
 
     @Override
     public Employee maxSalaryByDepartment(int id) {
-        return employees.stream()
+        return employeeService.findAll().stream()
                 .filter(employee -> employee.getId() == id)
                 .max((e1, e2) -> Integer.compare(e1.getSalary(), e2.getSalary()))
-                .orElse(null);
+                .orElseThrow(()-> new NoSuchElementException("No employee found in department with ID " + id));
     }
 
     @Override
     public Employee minSalaryByDepartment(int id) {
-        return employees.stream()
+        return employeeService.findAll().stream()
                 .filter(employee -> employee.getId() == id)
                 .min((e1, e2) -> Integer.compare(e1.getSalary(), e2.getSalary()))
-                .orElse(null);
+                .orElseThrow(()-> new NoSuchElementException("No employee found in department with ID " + id));
     }
 
     @Override
     public List<Employee> getAllEmployeesByDepartment(int id) {
-        return employees.stream()
+        return employeeService.findAll().stream()
                 .filter(employee -> employee.getId() == id)
                 .collect(Collectors.toList());
     }
 
     @Override
     public Map<Integer, List<Employee>> getAllEmployeesByDepartments() {
-        return employees.stream()
+        return employeeService.findAll().stream()
                 .collect(Collectors.groupingBy(Employee::getId));
     }
 
